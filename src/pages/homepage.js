@@ -1,14 +1,26 @@
+import { editTask } from "../services/task-services.js";
 import STORE from "../store.js";
 
 function renderTask(task) {
-  return `<div class="task flex gap-4" id="${task.id}">
-  <input type="checkbox" name="task" id="${task.id}" class="check--self">
+  console.log(task.completed);
+  return `<div class="js-task flex gap-4 ${
+    task.completed ? "checked" : ""
+  }" id="task-${task.id}">
+  <input type="checkbox" name="task" id="${
+    task.id
+  }" class="check check--self" ${task.completed ? "checked" : ""}>
   <div class="task__content">
-      <div class="flex gap-4">
+      <div class="flex gap-4 task__header">
           <p>${task.title}</p>
-          <img src="/assets/icons/info.svg" alt="info">
+          <i class="ri-error-warning-fill ri-lg" style="line-height: 1.3rem; color: ${
+            task.important
+              ? task.completed
+                ? "#F9A8D4"
+                : "#EC4899"
+              : "#D1D5DB"
+          }"></i>
       </div>
-      <p>${task.due_date}</p>
+      <p class="task__date">${task.due_date}</p>
   </div>
 </div>`;
 }
@@ -41,11 +53,41 @@ function render() {
         </section>
         <section class="main__list">
             <!-- <label for="aea"> -->
-            ${tasks.map((task) => renderTask(task)).join("")}
+            ${tasks.map(renderTask).join("")}
             <!-- </label> -->
         </section>
     </main>
 `;
+}
+
+function listenCheck() {
+  const listDivs = document.querySelectorAll(".check");
+
+  listDivs.forEach((task) => {
+    task.addEventListener("change", async (event) => {
+      const taskGotten = event.target.closest(`#task-${task.id}`);
+      //   const taskGotten = event.target.closest("");
+      console.log(taskGotten);
+      if (!taskGotten) return;
+      console.log(task.checked);
+      if (task.checked) {
+        taskGotten.classList.add("checked");
+        editTask({ completed: true }, task.id);
+      } else {
+        taskGotten.classList.remove("checked");
+        // div.classList.remove("foo");
+        editTask({ completed: false }, task.id);
+      }
+      //   try {
+      //     await deleteCard(listId, cardId);
+      //     STORE.deleteCard(listId, cardId);
+
+      //     DOMHandler.reload();
+      //   } catch (error) {
+      //     console.log(error);
+      //   }
+    });
+  });
 }
 
 function Homepage() {
@@ -53,7 +95,9 @@ function Homepage() {
     toString() {
       return render();
     },
-    addListeners() {},
+    addListeners() {
+      listenCheck();
+    },
   };
 }
 
