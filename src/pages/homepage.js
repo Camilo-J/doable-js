@@ -1,6 +1,7 @@
-import { editTask } from "../services/task-services.js";
 import STORE from "../store.js";
-
+import { createTask, editTask } from "../services/task-services.js";
+import { input } from "../components/input.js";
+import DOMHandler from "../dom-handler.js";
 function renderTask(task) {
   console.log(task.completed);
   return `<div class="js-task flex gap-4 ${
@@ -56,6 +57,21 @@ function render() {
             ${tasks.map(renderTask).join("")}
             <!-- </label> -->
         </section>
+        <form class="task-form form-self">
+        ${input({
+          id: "title",
+          required: true,
+          type: "text",
+          placeholder: "Do the dishes...",
+        })}
+        ${input({
+          id: "due_date",
+          required: true,
+          type: "date",
+          placeholder: "mm/dd/yy",
+        })}
+        <button>Add  task</button>
+      </form>
     </main>
 `;
 }
@@ -78,15 +94,22 @@ function listenCheck() {
         // div.classList.remove("foo");
         editTask({ completed: false }, task.id);
       }
-      //   try {
-      //     await deleteCard(listId, cardId);
-      //     STORE.deleteCard(listId, cardId);
-
-      //     DOMHandler.reload();
-      //   } catch (error) {
-      //     console.log(error);
-      //   }
     });
+  });
+}
+
+function listenSubmit() {
+  const form = document.querySelector(".task-form ");
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const { title, due_date } = e.target;
+    const dataTask = {
+      title: title.value,
+      due_date: due_date.value,
+    };
+    const newTask = await createTask(dataTask);
+    STORE.addTask(newTask);
+    DOMHandler.reload();
   });
 }
 
@@ -97,6 +120,7 @@ function Homepage() {
     },
     addListeners() {
       listenCheck();
+      listenSubmit();
     },
   };
 }
