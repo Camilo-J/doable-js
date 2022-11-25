@@ -5,7 +5,7 @@ const DOMHandler = {
     this.module = module;
     this.parent = parent;
     parent.innerHTML = module;
-    console.log(module);
+    // console.log(module);
     module.addListeners();
   },
   reload() {

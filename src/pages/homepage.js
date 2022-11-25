@@ -3,8 +3,8 @@ import DOMHandler from "../dom-handler.js";
 import { input } from "../components/input.js";
 import { createTask, editTask, getTasks } from "../services/task-services.js";
 import { renderHeader } from "../components/header.js";
+
 function renderTask(task) {
-  // console.log(task.completed);
   return `<div class="js-task flex gap-4 ${
     task.completed ? "checked" : ""
   }" id="task-${task.id}">
@@ -29,16 +29,14 @@ function renderTask(task) {
 
 function render() {
   let tasks = STORE.tasks;
-
-  console.log(STORE.tasks);
   return `
     ${renderHeader()}
     <main class="section-sm flex flex-column gap-4">
     <div>
-        <section class="main__header">
+        <section class="main__header flex flex-column gap-4">
             <div class=" flex gap-4">
                 <p>Sort</p>
-                <select name="sort" id="sort">
+                <select name="sort" id="sort" class="select select__input ">
                     <option value="Alphabetical">Alphabetical(a-z)</option>
                     <option value="Date">Due date</option>
                     <option value="Importance">Importance</option>
@@ -97,16 +95,12 @@ function listenCheck() {
   listDivs.forEach((task) => {
     task.addEventListener("change", async (event) => {
       const taskGotten = event.target.closest(`#task-${task.id}`);
-      //   const taskGotten = event.target.closest("");
-      // console.log(taskGotten);
       if (!taskGotten) return;
-      // console.log(task.checked);
       if (task.checked) {
         taskGotten.classList.add("checked");
         editTask({ completed: true }, task.id);
       } else {
         taskGotten.classList.remove("checked");
-        // div.classList.remove("foo");
         editTask({ completed: false }, task.id);
       }
     });
@@ -120,14 +114,12 @@ function listenCheckList() {
     task.addEventListener("change", async (event) => {
       event.target.setAttribute("checked", "");
       const option = event.target.id;
-      //   const taskGotten = event.target.closest("");
-      let currentpa;
-      console.log(task.checked);
-      console.log(option);
+      let currentpa, newT;
       if (task.checked) {
         switch (option) {
           case "important":
-            STORE.tasks = STORE.tasks.filter((task) => task.important === true);
+            newT = STORE.tasks.filter((task) => task.important === true);
+            STORE.setTasks(newT);
             currentpa =
               STORE.currentPage === "Ncompleted"
                 ? "Important&Ncompleted"
@@ -135,9 +127,8 @@ function listenCheckList() {
             break;
 
           case "Ncompleted":
-            STORE.tasks = STORE.tasks.filter(
-              (task) => task.completed === false
-            );
+            newT = STORE.tasks.filter((task) => task.completed === false);
+            STORE.setTasks(newT);
             currentpa =
               STORE.currentPage === "important"
                 ? "Important&Ncompleted"
@@ -150,9 +141,6 @@ function listenCheckList() {
         STORE.setCurrentPage(currentpa);
         DOMHandler.reload();
       } else {
-        let tasks = await getTasks();
-        STORE.setTasks(tasks);
-        // STORE.setCurrentPage("homepage");
         switch (option) {
           case "important":
             currentpa =
@@ -172,10 +160,22 @@ function listenCheckList() {
             break;
         }
         STORE.setCurrentPage(currentpa);
+        await STORE.listTasks();
         DOMHandler.reload();
       }
     });
   });
+}
+
+function listenSelectSort() {
+  const select = document.querySelector(".select");
+  select.addEventListener(
+    "change",
+    function (e) {
+      alert(e.target.value);
+    },
+    false
+  );
 }
 
 function listenSubmit() {
@@ -202,6 +202,7 @@ function Homepage() {
       listenCheck();
       listenSubmit();
       listenCheckList();
+      listenSelectSort();
     },
   };
 }
