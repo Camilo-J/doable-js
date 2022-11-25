@@ -169,13 +169,28 @@ function listenCheckList() {
 
 function listenSelectSort() {
   const select = document.querySelector(".select");
-  select.addEventListener(
-    "change",
-    function (e) {
-      alert(e.target.value);
-    },
-    false
-  );
+  select.addEventListener("change", function (e) {
+    const option = e.target.value;
+    console.log(e.target.value);
+    switch (option) {
+      case "Alphabetical":
+        let jk = STORE.tasks;
+        const sorta = jk.sort(function (a, b) {
+          if (a.title < b.title) return -1;
+
+          if (a.title > b.title) return 1;
+
+          return 0;
+        });
+        console.log(sorta);
+        STORE.setTasks(sorta);
+        DOMHandler.reload();
+        break;
+
+      default:
+        break;
+    }
+  });
 }
 
 function listenSubmit() {
