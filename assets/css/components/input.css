@@ -20,7 +20,7 @@
   align-items: center;
   gap: 0.5em;
   background-color: white;
-  width: 100%;
+  /* width: 100%; */
 }
 
 .select__input:hover {
@@ -88,7 +88,6 @@
 .select__input {
   appearance: none;
   padding-right: 36px;
-  background-image: url("assets/icons/chevron-down.svg");
   background-repeat: no-repeat;
   background-position-y: center;
   background-position-x: calc(100% - 8px);
@@ -163,7 +162,7 @@
   animation: tick 250ms ease-in forwards;
   background-color: var(--primary-300);
   border: 1px solid var(--primary-300);
-  background-image: url("assets/icons/check.svg");
+  background-image: url("assets/images/check.svg");
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -171,7 +170,7 @@
 @keyframes tick {
   from {
     border: 1px solid var(--gray-200);
-    background-color: transparent;
+    /* background-color: transparent; */
   }
   50% {
     transform: scale(1.2);

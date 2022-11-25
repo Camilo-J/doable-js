@@ -141,3 +141,11 @@
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
 }
+
+.check--self{
+  align-self: baseline;
+}
+
+.form-self{
+  justify-self: flex-end;
+}

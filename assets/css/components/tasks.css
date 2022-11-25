@@ -1,0 +1,12 @@
+
+.checked :last-child .task__header p{
+    color: #9CA3AF;
+}
+
+.checked :last-child .task__header i{
+    color: #9CA3AF;
+}
+
+.checked :last-child .task__date{
+color: #D1D5DB;
+}
