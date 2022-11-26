@@ -6,7 +6,7 @@ async function listTasks(option = null) {
   let tasks = await getTasks();
   let newT;
 
-  console.log(currentpage);
+  // console.log(currentpage);
   switch (currentpage) {
     case "important":
       newT = tasks.filter((task) => task.important === true);
