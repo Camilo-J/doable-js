@@ -24,7 +24,13 @@ function renderTask(task) {
               : "#D1D5DB"
           }"></i>
       </div>
-      <p class="task__date content-sm w-400">${task.due_date}</p>
+      <p class="task__date content-sm w-400">${new Date(
+        task.due_date
+      ).toLocaleString("en-US", {
+        weekday: "long", // long, short, narrow
+        month: "long", // numeric, 2-digit, long, short, narrow
+        day: "numeric", // numeric, 2-digit
+      })}</p>
   </div>
 </div>`;
 }
