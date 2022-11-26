@@ -106,6 +106,10 @@
   gap: 2rem;
 }
 
+.gap-16-06 {
+  gap: 4.875rem;
+}
+
 .items-center {
   align-items: center;
 }

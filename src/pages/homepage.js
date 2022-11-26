@@ -16,13 +16,15 @@ function renderTask(task) {
   <div class="task__content full-width">
       <div class="flex gap-4 task__header justify-between">
           <p class="w-600">${task.title}</p>
-          <i class="ri-error-warning-fill ri-lg" style="line-height: 1.3rem; color: ${
+          <i class="ri-error-warning-fill ri-lg" style="line-height: 1.3rem;"hidden></i>
+          
+          <i class="import ri-error-warning-fill ri-lg" style="line-height: 1.3rem; color: ${
             task.important
               ? task.completed
                 ? "#F9A8D4"
                 : "#EC4899"
               : "#D1D5DB"
-          }"></i>
+          }" id="${task.id}"></i>
       </div>
       <p class="task__date content-sm w-400">${new Date(
         task.due_date
@@ -39,7 +41,7 @@ function render() {
   let tasks = STORE.tasks;
   return `
     ${renderHeader()}
-    <main class="section-sm flex flex-column gap-4">
+    <main class="section-sm flex flex-column gap-16-06 ">
     <div class="flex flex-column gap-4 ">
         <section class="main__header flex flex-column gap-4">
             <div class=" flex gap-4">
@@ -60,7 +62,7 @@ function render() {
                     ? "checked"
                     : ""
                 } >
-                <label class="content-sm w-500" for="">Only pending</label>
+                <label class="content-sm w-500" for="Ncompleted">Only pending</label>
                 </div>  
                 <div class="flex gap-2 w-500">
                 <input class="checkbox checkbox__input checkbox--optionList" type="checkbox" name="important" id="important" ${
@@ -69,7 +71,7 @@ function render() {
                     ? "checked"
                     : ""
                 } >
-                <label class="content-sm w-500" for="">Only Important</label>
+                <label class="content-sm w-500" for="important">Only Important</label>
                 </div>      
             </div>
         </section>
@@ -241,6 +243,28 @@ function listenSubmit() {
   });
 }
 
+function listenImportant() {
+  const iconsI = document.querySelectorAll(".import");
+
+  iconsI.forEach((icon) => {
+    icon.addEventListener("click", () => {
+      const task = STORE.tasks.find((task) => task.id == icon.id);
+      if (!task) return;
+
+      if (task.important) {
+        task.important = false;
+        editTask({ important: false }, task.id);
+      } else {
+        task.important = true;
+        editTask({ important: true }, task.id);
+      }
+      STORE.deleteTask(task.id);
+      STORE.addTask(task);
+      DOMHandler.reload();
+    });
+  });
+}
+
 function Homepage() {
   return {
     toString() {
@@ -252,6 +276,7 @@ function Homepage() {
       listenCheckList();
       listenSelectSort();
       renderHeader().addListeners();
+      listenImportant();
     },
   };
 }
