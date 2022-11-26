@@ -243,6 +243,7 @@ function Homepage() {
       listenSubmit();
       listenCheckList();
       listenSelectSort();
+      renderHeader().addListeners();
     },
   };
 }
