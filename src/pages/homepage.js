@@ -37,6 +37,7 @@ function render() {
             <div class=" flex gap-4">
                 <p>Sort</p>
                 <select name="sort" id="sort" class="select select__input ">
+                <option value="Option">Select Option</option>
                     <option value="Alphabetical">Alphabetical(a-z)</option>
                     <option value="Date">Due date</option>
                     <option value="Importance">Importance</option>
@@ -171,18 +172,42 @@ function listenSelectSort() {
   const select = document.querySelector(".select");
   select.addEventListener("change", function (e) {
     const option = e.target.value;
-    console.log(e.target.value);
+    // console.log(e.target.value);
+    let data = STORE.tasks;
+    let sorta;
     switch (option) {
       case "Alphabetical":
-        let jk = STORE.tasks;
-        const sorta = jk.sort(function (a, b) {
+        sorta = data.sort(function (a, b) {
           if (a.title < b.title) return -1;
 
           if (a.title > b.title) return 1;
 
           return 0;
         });
-        console.log(sorta);
+        STORE.setTasks(sorta);
+        DOMHandler.reload();
+        break;
+
+      case "Date":
+        sorta = data.sort(function (a, b) {
+          if (a.due_date < b.due_date) return -1;
+
+          if (a.due_date > b.due_date) return 1;
+
+          return 0;
+        });
+        STORE.setTasks(sorta);
+        DOMHandler.reload();
+        break;
+
+      case "Importance":
+        sorta = data.sort(function (a, b) {
+          if (a.important > b.important) return -1;
+
+          if (a.important < b.important) return 1;
+
+          return 0;
+        });
         STORE.setTasks(sorta);
         DOMHandler.reload();
         break;
