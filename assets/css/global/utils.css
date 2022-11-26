@@ -65,6 +65,10 @@
   margin: 0;
 }
 
+/* .mt-1 {
+  margin-top: 0.25rem;
+} */
+
 /* Flex & Grid */
 .flex {
   display: flex;
@@ -148,4 +152,16 @@
 
 .form-self{
   justify-self: flex-end;
+}
+
+.w-500{
+font-weight: 500;
+}
+
+.w-600{
+font-weight: 600;
+}
+
+.w-400{
+font-weight: 400;
 }
