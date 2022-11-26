@@ -190,9 +190,9 @@ function listenSelectSort() {
 
       case "Date":
         sorta = data.sort(function (a, b) {
-          if (a.due_date < b.due_date) return -1;
+          if (a.due_date < b.due_date) return 1;
 
-          if (a.due_date > b.due_date) return 1;
+          if (a.due_date > b.due_date) return -1;
 
           return 0;
         });

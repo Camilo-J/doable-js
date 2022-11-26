@@ -5,23 +5,23 @@ import Homepage from "./homepage.js";
 import { input } from "../components/input.js";
 import { login } from "../services/session-services.js";
 import { getTasks } from "../services/task-services.js";
+import { renderHeader } from "../components/header.js";
 
 function render() {
   return `
-  <section class="section-lg">
+  ${renderHeader()}
+  <section class="section-sm">
     <div class="container flex flex-column gap-8 items-center">
       <h1 class="heading">Login</h1>
       <form action="" class="full-width container-sm flex flex-column gap-4 js-login-form">
         ${input({
           label: "Email",
-          icon: "/assets/icons/user.svg",
           id: "email",
           required: true,
           error: this.state.errors.username,
         })}
         ${input({
           label: "Password",
-          icon: "/assets/icons/key.svg",
           id: "password",
           required: true,
           error: this.state.errors.password,
@@ -61,13 +61,8 @@ function listenSubmit() {
 
       // Guardo en el STORE
       STORE.setCurrentPage("homepage");
-
-      // const lists = await getLists();
-      // STORE.setLists(lists);
       let tasks = await getTasks();
       STORE.setTasks(tasks);
-      console.log(STORE.tasks);
-      // Redirrecionar a la vista de las listas!
       DOMHandler.load(Homepage(), document.querySelector("#root"));
     } catch (error) {
       this.state.errors.form = error.message;
@@ -85,7 +80,7 @@ function listenCreateAccount() {
     event.preventDefault();
 
     STORE.setCurrentPage("signup");
-    DOMHandler.load(Homepage(), document.querySelector("#root"));
+    DOMHandler.load(SignupPage(), document.querySelector("#root"));
   });
 }
 
