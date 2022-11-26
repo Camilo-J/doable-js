@@ -28,7 +28,7 @@ function render() {
           type: "password",
           placeholder: "******",
         })}
-        <button type="submit" class="button button--secondary width-full">
+        <button type="submit" class="button button--primary width-full">
           Login
         </button>
       </form>

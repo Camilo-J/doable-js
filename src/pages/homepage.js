@@ -11,8 +11,8 @@ function renderTask(task) {
   <input type="checkbox" name="task" id="${
     task.id
   }" class="check check--self" ${task.completed ? "checked" : ""}>
-  <div class="task__content">
-      <div class="flex gap-4 task__header">
+  <div class="task__content full-width">
+      <div class="flex gap-4 task__header justify-between">
           <p>${task.title}</p>
           <i class="ri-error-warning-fill ri-lg" style="line-height: 1.3rem; color: ${
             task.important
@@ -32,7 +32,7 @@ function render() {
   return `
     ${renderHeader()}
     <main class="section-sm flex flex-column gap-4">
-    <div>
+    <div class="flex flex-column gap-4 ">
         <section class="main__header flex flex-column gap-4">
             <div class=" flex gap-4">
                 <p>Sort</p>
@@ -45,24 +45,24 @@ function render() {
             </div>
             <div class="flex gap-4">
                 <p>Show </p>
-                <label for="">
-                    <input class="checkbox checkbox__input checkbox--optionList" type="checkbox" name="Ncompleted" id="Ncompleted" ${
-                      STORE.currentPage === "Ncompleted" ||
-                      STORE.currentPage === "Important&Ncompleted"
-                        ? "checked"
-                        : ""
-                    } >
-                    Only pending
-                </label>
-                <label for="">
-                    <input class="checkbox checkbox__input checkbox--optionList" type="checkbox" name="important" id="important" ${
-                      STORE.currentPage === "important" ||
-                      STORE.currentPage === "Important&Ncompleted"
-                        ? "checked"
-                        : ""
-                    } >
-                    Only Important
-                </label>
+                <div class="flex gap-2 ">
+                <input class="checkbox checkbox__input checkbox--optionList" type="checkbox" name="Ncompleted" id="Ncompleted" ${
+                  STORE.currentPage === "Ncompleted" ||
+                  STORE.currentPage === "Important&Ncompleted"
+                    ? "checked"
+                    : ""
+                } >
+                <label for="">Only pending</label>
+                </div>  
+                <div class="flex gap-2 ">
+                <input class="checkbox checkbox__input checkbox--optionList" type="checkbox" name="important" id="important" ${
+                  STORE.currentPage === "important" ||
+                  STORE.currentPage === "Important&Ncompleted"
+                    ? "checked"
+                    : ""
+                } >
+                <label for="">Only Important</label>
+                </div>      
             </div>
         </section>
         <section class="main__list">
@@ -84,7 +84,7 @@ function render() {
           type: "date",
           placeholder: "mm/dd/yy",
         })}
-        <button class="button button--secondary width-full">Add  task</button>
+        <button class="button button--primary width-full">Add  task</button>
       </form>
     </main>
 `;
