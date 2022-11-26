@@ -17,6 +17,8 @@ async function init() {
     await STORE.listTasks();
   } catch (error) {
     sessionStorage.removeItem(tokenKey);
+    localStorage.removeItem("Task");
+    localStorage.removeItem(appKey);
     modu = LoginPage;
   }
 
