@@ -1,28 +1,47 @@
-# Project: Doable
 
-## Objective
+# Doable
 
-Build the MVP for the next big app for handle tasks:  `doable`
+This project allow users to create task and assign it a deadline. Also, filtering by importance and completed. This app use an API made on ruby on rails.
 
-![https://p-vvf5mjm.t4.n0.cdn.getcloudapp.com/items/lluornqX/a071c6a3-599f-4cde-9258-366cb04c4c8a.jpg?source=viewer&v=6fc3296f45b8ecbb2d53804bd324259b](https://p-vvf5mjm.t4.n0.cdn.getcloudapp.com/items/lluornqX/a071c6a3-599f-4cde-9258-366cb04c4c8a.jpg?source=viewer&v=6fc3296f45b8ecbb2d53804bd324259b)
+## Demo
 
-## Resources
+You can try the app [here](doablejs.netlify.app/)
+## Getting Started
 
-- Design: **[here](https://www.figma.com/file/NNdVoofP8u1kqw3zXAIkek/Doable?node-id=1%3A624)**
-- API repo: **[here](https://github.com/codeableorg/doable-api)** (contains a insomnia json file)
+Running locally follow the next steps.
 
-## Feature to implement:
+### Prerequisites
 
-- **User can create an account**
-- **User can login to the app**
-- **User can logout**
-- **User can create a task**
-- **User can mark a task as completed**
-- **User can mark a task as important**
-- **User can filter by pending tasks only**
-- **User can filter by important tasks only**
-- **User can sort tasks alphabetically**
-- **User can sort tasks by due date (more recent first)**
-- **User can sort tasks by importance (important task first)**
+- Node.js
+- npm
 
-HAPPY CODING! 👨‍💻 👨‍💻
+### Installation
+
+1. Clone the repo, or download the zip file
+
+   ```bash
+   git clone git@github.com:Camilo-J/doable-js.git
+   ```
+
+2. Install NPM packages
+
+   ```bash
+   npm install
+   ```
+
+3. Run the app
+
+   ```bash
+   npm run dev
+   ```
+
+
+
+
+## Tech Stack
+
+- [Css](https://developer.mozilla.org/es/docs/Web/CSS)
+- [Html](https://developer.mozilla.org/es/docs/Web/HTML)
+- [Javascript](https://developer.mozilla.org/es/docs/Web/JavaScript)
+- [netifly](https://www.netlify.com/)
+
